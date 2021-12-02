@@ -1,16 +1,11 @@
 #include "foo.capnp.h"
 
-#include <capnp/dynamic.h>
+#include <capnp/message.h>
 #include <kj/async-io.h>
+#include <kj/debug.h>
 #include <kj/main.h>
 #include <gtest/gtest.h>
-#include <iostream>
 
-#include <unistd.h>
-
-#include <sys/types.h>
-#include <sys/socket.h>
- 
 
 //void EKAM_TEST_DISABLE_INTERCEPTOR() {
 // asm ("nop");
