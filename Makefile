@@ -1,10 +1,22 @@
 SHELL := bash
 
 
-export CAPNP_INCLUDE_PATH = $(abspath $(dir $(shell which capnp))/../include)
+export CAPNP ?= $(abspath $(shell which capnp))
+export CAPNP_INCLUDE_PATH ?= $(abspath $(dir $(shell which capnp))/../include)
 
-.DEFAULT: release
+# ccache setup
+export CCACHE ?= $(abspath $(shell which ccache))
+export CCACHE_DIR ?= $(HOME)/.cache/ccache
+export EKAM_REMAP_BYPASS_DIRS ?= $(CCACHE_DIR)/
+export CXX_WRAPPER ?= $(CCACHE)
 
+# ekam setup
+NIX_BUILD_CORES ?= 4
+EKAM_LINES ?= 200
+EKAM ?=  nice ekam
+EKAM_FLAGS ?= -j $(NIX_BUILD_CORES) -l $(EKAM_LINES)
+
+# compiler seup
 export CXXFLAGS+=-DCAPNP_INCLUDE_PATH=$(CAPNP_INCLUDE_PATH)
 export CXXFLAGS+=--std=c++20 -rdynamic
 
@@ -16,10 +28,7 @@ export LIBS = \
   -lgtest_main -lgtest
 
 
-NIX_BUILD_CORES ?= 4
-EKAM := nice ekam
-EKAM_FLAGS := -j $(NIX_BUILD_CORES) -l 200
-
+.DEFAULT: release
 
 debug debug-continuous: export CXXFLAGS+=-ggdb3 -O0 -U_FORTIFY_SOURCE
 release release-continuous: export CXXFLAGS+=-O2 -DNDEBUG
