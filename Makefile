@@ -5,7 +5,7 @@ export CAPNP_INCLUDE_PATH ?= $(abspath $(dir $(shell which capnp))/../include)
 
 # ccache setup
 export CCACHE ?= $(abspath $(shell which ccache))
-export CCACHE_DIR ?= $(HOME)/.cache/ccache
+export CCACHE_DIR ?= $(shell $(CCACHE) -k cache_dir)
 export EKAM_REMAP_BYPASS_DIRS ?= $(CCACHE_DIR)/
 export CXX_WRAPPER ?= $(CCACHE)
 
