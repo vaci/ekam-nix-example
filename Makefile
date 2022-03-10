@@ -1,7 +1,7 @@
 SHELL := bash
 
+
 export CAPNP_INCLUDE_PATH = $(abspath $(dir $(shell which capnp))/../include)
-export LC_ALL=C
 
 .DEFAULT: release
 
