@@ -40,5 +40,3 @@ clean:
 	rm -fr bin tmp
 
 .PHONY: clean all
-
-.DEFAULT: release
